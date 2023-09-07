@@ -14,8 +14,9 @@ export default function Login() {
             [target]:value
         }))
     }
-    function LoginUser() {
-        await axios.get('https')
+    function LoginUser(event) {
+        event.preventDefault();
+        axios.get('http://localhost:4000/test')
     }
     return (
         <div className="grow flex justify-around items-center">
