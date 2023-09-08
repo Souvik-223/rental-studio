@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { useState } from "react"
 import axios from "axios"
+import toast from 'react-hot-toast'
 
 export default function Signup() {
     const [signupdata,setsignupdata] = useState({
@@ -20,9 +21,9 @@ export default function Signup() {
         event.preventDefault();
         try {
             await axios.post('/signup',signupdata)
-            alert('Registration Successfull')
+            toast.success('Registration Successfull')
         } catch (error) {
-            alert("Registration Failed")
+            toast.error("Registration Failed")
         }
     }
     return (
