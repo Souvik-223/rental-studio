@@ -1,7 +1,8 @@
 import { Link, Navigate } from "react-router-dom";
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import axios from 'axios'
-import toast from 'react-hot-toast'
+import {toast} from 'react-hot-toast'
+import { UserContext } from "../context/usercontext";
 
 export default function Login() {
 
@@ -11,6 +12,8 @@ export default function Login() {
     })
 
     const [redirect, setredirect] = useState(false)
+
+    const {setUser} = useContext(UserContext);
 
     function toggledata(event) {
         const { name, value } = event.target
@@ -23,16 +26,17 @@ export default function Login() {
     async function LoginUser(event) {
         event.preventDefault();
         try {
-            await axios.post('/login', logindata)
-            toast.success("Login successful")
+            const UserInfo = await axios.post('/login', logindata)
+            setUser(UserInfo.data)
+            toast.success("Login Successful")
             setredirect(true)
         } catch (error) {
-            toast.error("Login Failed")
+            toast.error("Please enter correct email and password")
         }
     }
 
     if (redirect) {
-        <Navigate to={'/'}/>
+       return <Navigate to={'/'}/>
     }
     return (
         <div className="grow flex justify-around items-center">
