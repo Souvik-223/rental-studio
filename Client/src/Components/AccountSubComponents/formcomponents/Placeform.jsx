@@ -16,6 +16,9 @@ export default function Placeform() {
   const [checkIn, setcheckIn] = useState('');
   const [checkOut, setcheckOut] = useState('');
   const [maxGuests, setmaxGuests] = useState(1);
+  const [pricepermonth, setpricepermonth] = useState(1);
+  const [priceperday, setpriceperday] = useState(1);
+  const [priceperhour, setpriceperhour] = useState(1);
 
   const [redirect,setredirect] = useState(false);
 
@@ -23,7 +26,22 @@ export default function Placeform() {
     if (!id) {
       return;
     }
-    axios.get('/places/'+ id)
+    axios.get('/places/'+ id).then(response=>{
+    const {data} = response;
+    settitle(data.title);
+    setaddress(data.address);
+    setaddedPhotos(data.photos);
+    setdescription(data.description);
+    setperks(data.perks);
+    setextraInfo(data.extraInfo);
+    setcheckIn(data.checkIn);
+    setcheckOut(data.checkOut);
+    setmaxGuests(data.maxGuests);
+    setpriceperday(data.priceperday)
+    setpricepermonth(data.pricepermonth)
+    setpriceperhour(data.priceperhour)
+
+    });
   },[id])
   function headeranddescription(header, description) {
     return (
@@ -34,11 +52,20 @@ export default function Placeform() {
     )
   }
 
-  async function addNewPlace(event) {
+  async function savePlace(event) {
     event.preventDefault();
-    const PlaceData = { title, address, addedPhotos, description, perks, extraInfo, checkIn, checkOut, maxGuests }
-    await axios.post('/places', PlaceData)
-    setredirect(true)
+    const PlaceData = { title, address, addedPhotos, description, perks, extraInfo, checkIn, checkOut, maxGuests, pricepermonth, priceperday,priceperhour}
+    if (id) {
+      //update an exisiting place to the database
+      await axios.put('/places', {id, ...PlaceData})
+      setredirect(true)
+
+    } else {
+      // add a new place to database
+      await axios.post('/places', PlaceData)
+      setredirect(true)
+    }
+
   }
 
 if (redirect) {
@@ -48,8 +75,8 @@ if (redirect) {
   return (
     <>
       <AccountNav />
-      <div className="mx-10">
-        <form className="flex flex-col" onSubmit={addNewPlace}>
+      <div>
+        <form className="flex flex-col" onSubmit={savePlace}>
           {headeranddescription('Title', 'The title for your property')}
           <input value={title} onChange={ev => settitle(ev.target.value)} className="border-2 border-gray-400 px-5 py-1 rounded-xl" type="text" placeholder="Title for your lovely apartment" />
           {headeranddescription('Address', 'Address should contain the city and street')}
@@ -80,6 +107,21 @@ if (redirect) {
             <div>
               <h3 className="mt-2">Max number of guests</h3>
               <input value={maxGuests} onChange={ev => setmaxGuests(ev.target.value)} className="border border-gray-400 rounded-2xl text-center py-2 px-3" type="number" placeholder="14:00" />
+            </div>
+          </div>
+          {headeranddescription('Price','Make Sure to give a good Price')}
+          <div className="grid gap-2 sm:grid-cols-3 my-4 text-center">
+            <div>
+              <h3 className="mt-2">Price / Per-Month</h3>
+              <input value={pricepermonth} onChange={ev => setpricepermonth(ev.target.value)} className="border border-gray-400 rounded-2xl text-center py-2 px-3" type="number" placeholder="14:00" />
+            </div>
+            <div>
+              <h3 className="mt-2">Price / Per-Day</h3>
+              <input value={priceperday} onChange={ev => setpriceperday(ev.target.value)} className="border border-gray-400 rounded-2xl text-center py-2 px-3" type="number" placeholder="14:00" />
+            </div>
+            <div>
+              <h3 className="mt-2">Price / Per-Hour</h3>
+              <input value={priceperhour} onChange={ev => setpriceperhour(ev.target.value)} className="border border-gray-400 rounded-2xl text-center py-2 px-3" type="number" placeholder="14:00" />
             </div>
           </div>
           <button className="bg-[#ff385c] text-white font-bold text-xl px-8 py-3 rounded-full w-[70vw] mx-auto my-8">Save</button>

@@ -10,6 +10,7 @@ import Bookings from './Components/AccountSubComponents/Bookings'
 import Profile from './Components/Profile'
 import Sellproperty from './Components/AccountSubComponents/Sellproperty'
 import Placeform from './Components/AccountSubComponents/formcomponents/Placeform'
+import Placedetails from './Components/Placedetailscomponents/Placedetails'
 
 axios.defaults.baseURL = 'http://127.0.0.1:4000';
 axios.defaults.withCredentials = true;
@@ -27,6 +28,7 @@ function App() {
           <Route path='/account/bookings' element={<Bookings />} />
           <Route path='/account/places/new' element={<Placeform/>} />
           <Route path='/account/places/:id' element={<Placeform/>} />
+          <Route path='/place/:id' element={<Placedetails/>} />
         </Route>
       </Routes>
     </UserContextProvider>

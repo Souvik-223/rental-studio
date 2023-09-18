@@ -6,7 +6,7 @@ import AccountNav from "./AccountNav";
 export default function Placesforsale() {
   const [places, setplaces] = useState([])
   useEffect(() => {
-    axios.get('/places').then(({ data }) => {
+    axios.get('/user-places').then(({ data }) => {
       setplaces(data)
     })
   }, [])
@@ -25,9 +25,9 @@ export default function Placesforsale() {
         </div>
         {places.length > 0 && places.map(place => (
           <Link to={'/account/places/' + place._id} className="flex gap-4 p-4 bg-gray-200 rounded-2xl">
-            <div className="bg-gray-400 h-32 w-32 grow shrink-0">
+            <div className="flex bg-gray-400 h-32 w-32 grow shrink-0">
               {place.photos.length > 0 && (
-                <img src={place.photos[0]} alt="image" />
+                <img className="object-cover rounded-xl" src={'http://localhost:4000/'+place.photos[0]} alt="image" />
               )}
             </div>
             <div className="grow-0 shrink">

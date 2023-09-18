@@ -2,7 +2,7 @@ import { Navigate } from 'react-router-dom'
 import AccountNav from './AccountNav'
 
 function bookaplace(){
-  return <Navigate to={'/'}/>
+  return (<Navigate to={'/'}/>)
 }
 
 export default function Places({ User, logout }) {
