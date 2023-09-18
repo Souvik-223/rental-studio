@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs')
 const mongoose = require('mongoose');
 const User = require('./modals/user')
 const Place = require('./modals/place')
+const Booking = require('./modals/booking')
 const cookieParser = require('cookie-parser')
 const imageDownloader = require('image-downloader')
 const jwt = require('jsonwebtoken')
@@ -183,9 +184,26 @@ app.get('/user-places', (req, res) => {
 })
 
 // booking a place for a user
-app.post('/booking',(req,res)=>{
-    const {place, checkIn, checkOut, maxGuests, Name, Mobilenumber} = req.body;
+app.post('/booking', async (req, res) => {
+    const { token } = req.cookies;
+    jwt.verify(token, jwtSecret, {}, async (error, userData) => {
+        if (error) throw error;
+        const { id } = userData;
+        const { place, checkIn, checkOut, maxGuests, name, mobilenumber, price } = req.body;
+        const bookingDoc = await Booking.create({
+            place, user:id, checkIn, checkOut, maxGuests, name, mobilenumber, price
+        })
+        res.json(bookingDoc);
+    })
+})
 
+//getting the list of all the booked places
+app.get('/booking', (req, res) => {
+    const { token } = req.cookies;
+    jwt.verify(token, jwtSecret, {}, async (error, userData) => {
+        const { id } = userData;
+        res.json(await Booking.find({ user:id }).populate("place"))
+    })
 })
 
 

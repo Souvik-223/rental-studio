@@ -1,13 +1,23 @@
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { differenceInCalendarDays } from 'date-fns'
+import {Navigate} from 'react-router-dom'
+import { UserContext } from "../../context/usercontext"
 import axios from "axios"
 
 export default function Bookingoperation({ place }) {
     const [checkIn, setcheckIn] = useState('')
     const [checkOut, setcheckOut] = useState('')
     const [maxGuests, setmaxGuests] = useState(1)
-    const [Name, setName] = useState('')
-    const [Mobilenumber, setMobilenumber] = useState(null)
+    const [name, setname] = useState('')
+    const [mobilenumber, setmobilenumber] = useState(null)
+    const [redirect, setredirect] = useState('')
+    const {User} = useContext(UserContext)
+
+    useEffect(()=>{
+        if(User){
+            setname(User.name)
+        }
+    },[User])
 
     let numberofdays = 0;
     if (checkIn && checkOut) {
@@ -15,12 +25,18 @@ export default function Bookingoperation({ place }) {
     }
 
     async function bookingPlace() {
-        const bookingData = {checkIn, checkOut, maxGuests, Name, Mobilenumber}
-        await axios.post('/booking',bookingData)
+        const bookingData = { place: place._id, checkIn, checkOut, maxGuests, name, mobilenumber, price: place.priceperday * numberofdays }
+        const response = await axios.post('/booking', bookingData);
+        const bookingId = response.data._id
+        setredirect(`/account/bookings/${bookingId}`)
+    }
+
+    if (redirect) {
+        return <Navigate to={redirect}/>
     }
 
     return (
-        <div className="bg-white py-4 px-8 shadow rounded-2xl flex flex-col gap-3 my-5 h-fit">
+        <div className="bg-white py-4 px-8 shadow rounded-2xl flex flex-col gap-3 my-5 h-fit w-fit mx-auto">
             <div className="text-2xl font-medium mx-auto">
                 Price: ${place.priceperday} / per day
             </div>
@@ -40,12 +56,15 @@ export default function Bookingoperation({ place }) {
                     <input className="rounded-full px-4 border border-gray-400 py-1" type="number" value={maxGuests} onChange={ev => setmaxGuests(ev.target.value)} />
                 </div>
                 {numberofdays > 0 && (
-                    <div className="py-3 px-4 flex flex-col gap-4">
-                        <label className="font-semibold">Your Full Name: </label>
-                        <input className="rounded-full px-4 border border-gray-400 py-1" type="text" value={Name} onChange={ev => setName(ev.target.value)} />
+                    <div>
+                        <div className="py-3 px-4 flex flex-col gap-4">
+                            <label className="font-semibold">Your Full name: </label>
+                            <input className="rounded-full px-4 border border-gray-400 py-1" type="text" value={name} onChange={ev => setname(ev.target.value)} />
 
-                        <label className="font-semibold">Your Mobile number: </label> 
-                        <input className="rounded-full px-4 border border-gray-400 py-1" type="tel" placeholder="+91 9999999999" value={Mobilenumber} onChange={ev => setMobilenumber(ev.target.value)} />
+                            <label className="font-semibold">Your Mobile number: </label>
+                            <input className="rounded-full px-4 border border-gray-400 py-1" type="tel" placeholder="+91 9999999999" value={mobilenumber} onChange={ev => setmobilenumber(ev.target.value)} />
+                        </div>
+                        <div className="text-lg text-center font-bold my-3">Your Total Price : {place.priceperday * numberofdays}</div>
                     </div>
                 )}
             </div>

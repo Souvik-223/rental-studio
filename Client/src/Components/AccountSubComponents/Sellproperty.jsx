@@ -25,14 +25,16 @@ export default function Placesforsale() {
         </div>
         {places.length > 0 && places.map(place => (
           <Link to={'/account/places/' + place._id} className="flex gap-4 p-4 bg-gray-200 rounded-2xl">
-            <div className="flex bg-gray-400 h-32 w-32 grow shrink-0">
+            <div className="flex bg-gray-400 h-44 w-44 grow shrink-0">
               {place.photos.length > 0 && (
                 <img className="object-cover rounded-xl" src={'http://localhost:4000/'+place.photos[0]} alt="image" />
               )}
             </div>
             <div className="grow-0 shrink">
-              <h2 className="text-lg font-semibold ">{place.title}</h2>
-              <p>{place.description}</p>
+              <h2 className="text-lg font-bold">{place.title}</h2>
+              <h3 className="font-semibold mb-2">{place.address}</h3>
+              <p className="font-normal">{place.description}</p>
+              <h3 className="font-semibold my-3">Price: ${place.priceperday} /per day</h3>
             </div>
           </Link>
         ))}
