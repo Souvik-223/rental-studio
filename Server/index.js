@@ -26,7 +26,7 @@ app.use('/uploads', express.static(__dirname + '/uploads'));
 // Applying CORS for the API
 app.use(Cors({
     credentials: true,
-    origin: "http://127.0.0.1:5173"
+    origin: "https://rental-studio.vercel.app"
 }));
 
 //Just for testing the pai and the server
