@@ -2,7 +2,8 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import axios from 'axios'
 import Bookingoperation from "./Bookingoperation";
-import Upperdetails from './subdetailscomponenets/Upperdetails'
+import Topdetails from "./subdetailscomponenets/Topdetails";
+
 
 export default function Placedetails() {
     const { id } = useParams()
@@ -21,7 +22,7 @@ export default function Placedetails() {
     return (
         <div>
             <div className="mt-5 rounded-3xl bg-gray-200 px-10 py-6">
-                <Upperdetails place={place} />
+                <Topdetails place={place} />
                 <div className="grid grid-cols-1 gap-2 sm:gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-[2fr_1fr] mt-8 mb-4">
                     <div className="py-5">
                         <h2 className="font-bold text-2xl my-5">Description</h2>

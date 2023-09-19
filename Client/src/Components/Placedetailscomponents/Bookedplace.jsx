@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import AccountNav from "../AccountSubComponents/AccountNav";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import Upperdetails from "./subdetailscomponenets/upperdetails";
 import { format, differenceInCalendarDays } from "date-fns";
+import Topdetails from "./subdetailscomponenets/Topdetails";
 
 export default function Bookedplace() {
     const { id } = useParams()
@@ -26,7 +26,7 @@ export default function Bookedplace() {
             <AccountNav />
             <div>
                 <div className="mt-5 rounded-3xl bg-gray-200 px-10 py-6">
-                    <Upperdetails place={booked.place} />
+                    <Topdetails place={booked.place} />
                     <div className="grid grid-cols-1 gap-2 sm:gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-[2fr_1fr] mt-8 mb-4">
                         <div className="py-5">
                             <h2 className="font-bold text-2xl my-5">Description</h2>

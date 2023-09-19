@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Upperdetails({place}) {
+export default function Topdetails({place}) {
     const [showallphotos, setshowallphotos] = useState(false);
 
     if (showallphotos) {
