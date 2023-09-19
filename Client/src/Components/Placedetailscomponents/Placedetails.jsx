@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import axios from 'axios'
 import Bookingoperation from "./Bookingoperation";
-import Upperdetails from "./subdetailscomponenets/Upperdetails";
+import Upperdetails from './subdetailscomponenets/Upperdetails'
 
 export default function Placedetails() {
     const { id } = useParams()
