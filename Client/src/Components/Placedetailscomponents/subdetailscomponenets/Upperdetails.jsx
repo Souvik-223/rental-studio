@@ -18,7 +18,7 @@ export default function Upperdetails({place}) {
                     </div>
                     {place?.photos?.length > 0 && place.photos.map(photo => (
                         <div className="mx-auto">
-                            <img className="w-[60vw] h-[60vh] object-cover" src={"http://localhost:4000/" + photo} alt="imageList" />
+                            <img className="w-[60vw] h-[60vh] object-cover" src={import.meta.env.VITE_DataURL + photo} alt="imageList" />
                         </div>
                     ))}
                 </div>
@@ -43,16 +43,16 @@ export default function Upperdetails({place}) {
                 <div className="grid gap-2 grid-cols-[2fr_1fr] rounded-2xl max-h-[50rem] overflow-hidden">
                     <div>
                         {place.photos?.[0] && (
-                            <img className="max-h-[50rem] aspect-square object-cover" src={"http://localhost:4000/" + place.photos[0]} alt="image 1" />
+                            <img className="max-h-[50rem] aspect-square object-cover" src={import.meta.env.VITE_DataURL + place.photos[0]} alt="image 1" />
                         )}
                     </div>
                     <div className="grid">
                         {place.photos?.[1] && (
-                            <img className="max-h-[30rem] aspect-square object-cover" src={"http://localhost:4000/" + place.photos[1]} alt="image 2" />
+                            <img className="max-h-[30rem] aspect-square object-cover" src={import.meta.env.VITE_DataURL + place.photos[1]} alt="image 2" />
                         )}
                         <div className="overflow-hidden">
                             {place.photos?.[2] && (
-                                <img className="max-h-[30rem] aspect-square object-cover relative top-2" src={"http://localhost:4000/" + place.photos[2]} alt="image 3" />
+                                <img className="max-h-[30rem] aspect-square object-cover relative top-2" src={import.meta.env.VITE_DataURL + place.photos[2]} alt="image 3" />
                             )}
                         </div>
                     </div>

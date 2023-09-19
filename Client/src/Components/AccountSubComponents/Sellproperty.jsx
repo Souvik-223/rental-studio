@@ -27,7 +27,7 @@ export default function Placesforsale() {
           <Link to={'/account/places/' + place._id} className="flex gap-4 p-4 bg-gray-200 rounded-2xl">
             <div className="flex bg-gray-400 h-44 w-44 grow shrink-0">
               {place.photos.length > 0 && (
-                <img className="object-cover rounded-xl" src={'http://localhost:4000/'+place.photos[0]} alt="image" />
+                <img className="object-cover rounded-xl" src={import.meta.env.VITE_DataURL+place.photos[0]} alt="image" />
               )}
             </div>
             <div className="grow-0 shrink">

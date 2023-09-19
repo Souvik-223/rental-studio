@@ -13,7 +13,7 @@ import Placeform from './Components/AccountSubComponents/formcomponents/Placefor
 import Placedetails from './Components/Placedetailscomponents/Placedetails'
 import Bookedplace from './Components/Placedetailscomponents/Bookedplace'
 
-axios.defaults.baseURL = 'http://127.0.0.1:4000';
+axios.defaults.baseURL = import.meta.env.VITE_URL;
 axios.defaults.withCredentials = true;
 
 function App() {

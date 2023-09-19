@@ -15,7 +15,7 @@ export default function IndexPage() {
                 <Link to={'/place/'+place._id}>
                     <div className="rounded-2xl flex">
                         {place.photos?.[0] && (
-                            <img className="aspect-square rounded-2xl object-cover" src={'http://localhost:4000/' + place.photos?.[0]} alt="image" />
+                            <img className="aspect-square rounded-2xl object-cover" src={import.meta.env.VITE_DataURL + place.photos?.[0]} alt="image" />
                         )}
                     </div>
                     <div className="px-2 my-2">

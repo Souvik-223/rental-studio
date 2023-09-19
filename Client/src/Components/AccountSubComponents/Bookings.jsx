@@ -30,7 +30,7 @@ export default function Places({ User }) {
         <Link to={'/account/bookings/' + booking._id} className="flex gap-4 mt-8 bg-gray-200 rounded-2xl">
           <div className="flex h-48 w-48 grow shrink-0">
             {booking.place.photos?.length > 0 && (
-              <img className="object-cover rounded-s-xl" src={'http://localhost:4000/' + booking.place.photos[0]} alt="image" />
+              <img className="object-cover rounded-s-xl" src={import.meta.env.VITE_DataURL + booking.place.photos[0]} alt="image" />
             )}
           </div>
           <div className="grow-0 shrink w-full flex flex-col jutify-center my-2">
