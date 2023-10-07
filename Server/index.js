@@ -14,6 +14,7 @@ require("dotenv").config()
 const app = express()
 
 // Necessities
+const PORT = process.env.PORT || 5000;
 mongoose.connect(process.env.MONGO_URI)
 const bcryptsalt = bcrypt.genSaltSync(12)
 const jwtSecret = "kjsdhoi4r9r8o89yr29h9rh230hne3y02u208e4j320j082ur023ne4fyw0r0er3684f96wr163wr62341"
@@ -207,4 +208,6 @@ app.get('/booking', (req, res) => {
 })
 
 
-app.listen(4000);
+app.listen(PORT,() => {
+    console.log(`Server Started at Port ${PORT}`)
+ });
